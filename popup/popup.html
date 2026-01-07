@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Task Radar</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📋 Task Radar</h1>
+      <p class="subtitle">Your search-based task manager</p>
+    </header>
+    
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number" id="total-tasks">0</span>
+        <span class="stat-label">Total Tasks</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="pending-tasks">0</span>
+        <span class="stat-label">Pending</span>
+      </div>
+    </div>
+    
+    <div class="tasks-container">
+      <h2>Your Tasks</h2>
+      <div class="tasks-list" id="tasks-list">
+        <!-- Tasks will be inserted here -->
+      </div>
+      
+      <div class="empty-state" id="empty-state">
+        <p>No tasks yet. Start searching and we'll help you track them!</p>
+      </div>
+    </div>
+    
+    <div class="actions">
+      <button id="clear-completed" class="btn-secondary">Clear Completed</button>
+      <button id="export-tasks" class="btn-secondary">Export Tasks</button>
+    </div>
+    
+    <footer>
+      <p class="footer-text">Searches with purpose</p>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

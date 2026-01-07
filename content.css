@@ -1,0 +1,173 @@
+/* Task Radar Prompt Styling */
+#task-radar-prompt {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  animation: slideIn 0.3s ease-out;
+}
+
+.task-radar-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  width: 320px;
+  overflow: hidden;
+}
+
+.task-radar-header {
+  background: #4285f4;
+  color: white;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-radar-icon {
+  font-size: 20px;
+}
+
+.task-radar-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.task-radar-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.task-radar-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.task-radar-content {
+  padding: 20px;
+}
+
+.task-radar-query {
+  font-size: 15px;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+  color: #333;
+  font-weight: 500;
+}
+
+.task-radar-category {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+.task-radar-estimate {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 20px 0;
+}
+
+.task-radar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-radar-btn {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.task-radar-yes {
+  background: #4285f4;
+  color: white;
+}
+
+.task-radar-yes:hover {
+  background: #3367d6;
+  transform: translateY(-1px);
+}
+
+.task-radar-no {
+  background: #f1f3f4;
+  color: #5f6368;
+}
+
+.task-radar-no:hover {
+  background: #e8eaed;
+}
+
+.task-radar-later {
+  background: transparent;
+  color: #5f6368;
+  border: 1px solid #dadce0;
+}
+
+.task-radar-later:hover {
+  background: #f8f9fa;
+}
+
+/* Success Message */
+#task-radar-success {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001;
+  animation: slideIn 0.3s ease-out;
+}
+
+.task-radar-success-container {
+  background: #34a853;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-radar-success-icon {
+  font-size: 18px;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
