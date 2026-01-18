@@ -5,22 +5,33 @@
   "main": "src/background/background.js",
   "scripts": {
     "test": "jest",
+    "test:unit": "jest --testPathPattern=tests/unit",
+    "test:integration": "jest --testPathPattern=tests/integration",
     "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:all": "npm run test:unit && npm run test:integration"
   },
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0"
   },
   "jest": {
-    "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": ["<rootDir>/tests/unit/setup.js"],
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/**/*.test.js"
-    ],
-    "coverageDirectory": "tests/coverage",
-    "coverageReporters": ["text", "lcov", "html"],
-    "testMatch": ["**/tests/unit/**/*.test.js"]
+    "projects": [
+      {
+        "displayName": "unit",
+        "testEnvironment": "jsdom",
+        "setupFilesAfterEnv": ["<rootDir>/tests/unit/setup.js"],
+        "collectCoverageFrom": [
+          "src/**/*.js",
+          "!src/**/*.test.js"
+        ],
+        "testMatch": ["**/tests/unit/**/*.test.js"]
+      },
+      {
+        "displayName": "integration",
+        "testEnvironment": "node",
+        "testMatch": ["**/tests/integration/**/*.test.js"]
+      }
+    ]
   }
 }

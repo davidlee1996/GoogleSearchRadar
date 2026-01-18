@@ -49,8 +49,11 @@ Key components:
    This should run the test suite successfully.
 
 ### Development Workflow
-- **Run tests**: `npm run test`
+- **Run all tests**: `npm run test:all`
+- **Run unit tests only**: `npm run test:unit`
+- **Run integration tests only**: `npm run test:integration`
 - **Run tests with coverage**: `npm run test:coverage`
+- **Run tests in watch mode**: `npm run test:watch`
 - **Lint code** (if configured): `npm run lint`
 - **Build for production** (if applicable): `npm run build`
 
@@ -252,10 +255,24 @@ popup/
 
 ## Testing
 
-Unit tests are implemented using Jest with jsdom for DOM simulation. The test suite covers core functionality with comprehensive mocking of Chrome APIs and browser environments.
+The project includes both unit tests and integration tests to ensure comprehensive code quality and functionality.
+
+### Unit Tests
+Unit tests are implemented using Jest with jsdom for DOM simulation. They test individual components in isolation with comprehensive mocking of Chrome APIs and browser environments.
+
+### Integration Tests
+Integration tests validate the overall extension structure, file organization, and module integration without requiring a full browser environment. They ensure all components work together correctly through file structure validation and code pattern matching.
+
+**Integration Test Features:**
+- Extension file structure validation
+- Manifest configuration verification
+- Cross-component communication patterns
+- Module syntax and export validation
+- Popup UI structure integrity
 
 ### Test Setup
-- **Framework**: Jest with jsdom environment
+- **Unit Tests**: Jest with jsdom environment
+- **Integration Tests**: Jest with Node environment for structural validation
 - **Configuration**: ES module support, coverage reporting
 - **Mocking**: Chrome extension APIs (storage, runtime, action), DOM methods, MutationObserver
 
@@ -270,9 +287,39 @@ Unit tests are implemented using Jest with jsdom for DOM simulation. The test su
 
 ### Running Tests
 ```bash
+# Install dependencies
 npm install
-npm run test          # Run all tests
-npm run test:coverage # Run tests with coverage report
+
+# Run all tests (unit + integration)
+npm run test:all
+
+# Run unit tests only
+npm run test:unit
+
+# Run integration tests only
+npm run test:integration
+
+# Run tests with coverage report
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+### Test Structure
+```
+tests/
+├── unit/                    # Unit tests
+│   ├── setup.js            # Global mocks
+│   ├── TaskManager.test.js
+│   ├── SearchAnalyzer.test.js
+│   ├── TaskRadarContent.test.js
+│   ├── TaskRadarPopup.test.js
+│   └── background.test.js
+└── integration/            # Integration tests (structural validation)
+    ├── extension-integration.test.js
+    ├── popup-integration.test.js
+    └── workflow-integration.test.js
 ```
 
 ### Test Files
@@ -282,6 +329,9 @@ npm run test:coverage # Run tests with coverage report
 - `tests/unit/TaskRadarContent.test.js` — Content script functionality
 - `tests/unit/TaskRadarPopup.test.js` — Popup interface
 - `tests/unit/background.test.js` — Background script message handling
+- `tests/integration/extension-integration.test.js` — Extension structure and file validation
+- `tests/integration/popup-integration.test.js` — Popup UI integration
+- `tests/integration/workflow-integration.test.js` — Component communication patterns
 
 ## Manifest
 
