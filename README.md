@@ -49,6 +49,39 @@ popup/
   popup.js
 ```
 
+## Testing
+
+Unit tests are implemented using Jest with jsdom for DOM simulation. The test suite covers core functionality with comprehensive mocking of Chrome APIs and browser environments.
+
+### Test Setup
+- **Framework**: Jest with jsdom environment
+- **Configuration**: ES module support, coverage reporting
+- **Mocking**: Chrome extension APIs (storage, runtime, action), DOM methods, MutationObserver
+
+### Coverage
+- **Overall**: 66.52% statements, 76.1% branches, 59.64% functions, 66.66% lines
+- **Key Modules**:
+  - TaskManager: 100% (CRUD operations, validation)
+  - SearchAnalyzer: 100% (query analysis, categorization)
+  - Background script: 67.5% (message handling)
+  - Content script: 63.15% (search detection, UI)
+  - Popup script: 70.88% (task rendering, export)
+
+### Running Tests
+```bash
+npm install
+npm run test          # Run all tests
+npm run test:coverage # Run tests with coverage report
+```
+
+### Test Files
+- `tests/unit/setup.js` — Global mocks and configuration
+- `tests/unit/TaskManager.test.js` — Task management logic
+- `tests/unit/SearchAnalyzer.test.js` — Search analysis algorithms
+- `tests/unit/TaskRadarContent.test.js` — Content script functionality
+- `tests/unit/TaskRadarPopup.test.js` — Popup interface
+- `tests/unit/background.test.js` — Background script message handling
+
 ## Manifest
 
 This extension uses Manifest V3. Primary permissions declared in `manifest.json` include `storage`, `activeTab`, and `scripting`, and host permissions for Google domains.

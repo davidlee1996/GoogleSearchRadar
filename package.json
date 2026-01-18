@@ -1,0 +1,26 @@
+{
+  "name": "google-search-radar",
+  "version": "1.0.0",
+  "description": "Chrome extension to detect tasks from Google searches",
+  "main": "src/background/background.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/tests/unit/setup.js"],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.test.js"
+    ],
+    "coverageDirectory": "tests/coverage",
+    "coverageReporters": ["text", "lcov", "html"],
+    "testMatch": ["**/tests/unit/**/*.test.js"]
+  }
+}

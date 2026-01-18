@@ -1,7 +1,9 @@
 class TaskRadarPopup {
   constructor() {
     this.tasks = [];
-    this.init();
+    if (typeof module === 'undefined' || !module.exports) {
+      this.init();
+    }
   }
 
   async init() {
@@ -177,6 +179,13 @@ class TaskRadarPopup {
 }
 
 // Initialize when popup opens
-document.addEventListener('DOMContentLoaded', () => {
-  new TaskRadarPopup();
-});
+if (typeof module === 'undefined' || !module.exports) {
+  document.addEventListener('DOMContentLoaded', () => {
+    new TaskRadarPopup();
+  });
+}
+
+// Expose for testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { TaskRadarPopup };
+}

@@ -2,7 +2,7 @@
 class TaskManager {
   constructor() {
     this.tasks = [];
-    this.loadTasks();
+    // this.loadTasks(); // Commented out for testing
   }
 
   async loadTasks() {
@@ -99,4 +99,9 @@ async function handleDetectedSearch(searchData, tabId) {
     color: '#4285f4',
     tabId: tabId
   });
+}
+
+// Expose for testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { TaskManager, handleDetectedSearch, createTask };
 }

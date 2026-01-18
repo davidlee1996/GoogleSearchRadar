@@ -159,7 +159,9 @@ class TaskRadarContent {
   constructor() {
     this.analyzer = new SearchAnalyzer();
     this.uiCreated = false;
-    this.init();
+    if (typeof module === 'undefined' || !module.exports) {
+      this.init();
+    }
   }
 
   async init() {
@@ -339,10 +341,17 @@ class TaskRadarContent {
 }
 
 // Initialize when page loads
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+if (typeof module === 'undefined' || !module.exports) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      new TaskRadarContent();
+    });
+  } else {
     new TaskRadarContent();
-  });
-} else {
-  new TaskRadarContent();
+  }
+}
+
+// Expose for testing
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { SearchAnalyzer, TaskRadarContent };
 }
