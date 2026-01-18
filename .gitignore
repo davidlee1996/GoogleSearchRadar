@@ -100,3 +100,7 @@ build/
 
 # Docker
 docker-compose.override.yml
+
+# Docker cleanup logs
+docker-cleanup.log
+docker-cleanup-error.log

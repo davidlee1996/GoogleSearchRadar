@@ -155,6 +155,65 @@ docker-compose run --rm test -- --testNamePattern="specific test name"
 - No need to rebuild the image for code changes
 - Dependencies are isolated within the container
 
+#### Docker Container Management
+
+**Automatic Cleanup Script:**
+A cleanup script is provided to automatically stop containers after 24 hours of inactivity:
+
+```bash
+# Run cleanup manually
+./docker-cleanup.sh
+
+# Preview what would be stopped (dry run)
+./docker-cleanup.sh --dry-run
+
+# Use different inactivity threshold (48 hours)
+./docker-cleanup.sh --hours 48
+
+# Cleanup different project
+./docker-cleanup.sh --project myproject
+```
+
+*Note: Cleanup logs are saved to `docker-cleanup.log` in the project directory.*
+
+**Setup Automatic Cleanup (macOS):**
+```bash
+# Edit crontab
+crontab -e
+
+# Add this line to run cleanup daily at 2 AM
+0 2 * * * cd /path/to/GoogleSearchRadar && ./docker-cleanup.sh
+
+# Save and exit (usually Ctrl+X, then Y, then Enter)
+```
+
+**Setup Automatic Cleanup (Linux):**
+```bash
+# Create a cron job
+echo "0 2 * * * cd /path/to/GoogleSearchRadar && ./docker-cleanup.sh" | crontab -
+
+# Or create a systemd timer (more reliable)
+sudo nano /etc/systemd/system/docker-cleanup.service
+sudo nano /etc/systemd/system/docker-cleanup.timer
+sudo systemctl enable docker-cleanup.timer
+sudo systemctl start docker-cleanup.timer
+```
+
+**Manual Container Management:**
+```bash
+# Stop all project containers
+docker-compose down
+
+# Stop specific service
+docker-compose stop test
+
+# Remove stopped containers
+docker container prune -f
+
+# Remove unused images
+docker image prune -f
+```
+
 ## Install (developer / local)
 
 1. Open Chrome (or another Chromium-based browser).
