@@ -13,6 +13,148 @@ Key components:
 - `popup/` — popup UI (`popup.html`, `popup.js`, `popup.css`)
 - `icons/` — extension icons
 
+## Development Setup
+
+### Prerequisites
+- Node.js (version 16 or higher recommended)
+- npm (comes with Node.js) or yarn
+- Chrome or another Chromium-based browser
+
+### Environment Setup
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd GoogleSearchRadar
+   ```
+
+2. **Install Node.js** (if not already installed):
+   - Download from [nodejs.org](https://nodejs.org/)
+   - Or use a version manager like [nvm](https://github.com/nvm-sh/nvm):
+     ```bash
+     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+     nvm install node
+     nvm use node
+     ```
+
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+   This will install all development and testing dependencies defined in `package.json`.
+
+4. **Verify setup**:
+   ```bash
+   npm run test
+   ```
+   This should run the test suite successfully.
+
+### Development Workflow
+- **Run tests**: `npm run test`
+- **Run tests with coverage**: `npm run test:coverage`
+- **Lint code** (if configured): `npm run lint`
+- **Build for production** (if applicable): `npm run build`
+
+### Docker Setup (Optional)
+For isolated development and testing environments without installing Node.js locally, you can use Docker.
+
+**Prerequisites:**
+- Docker installed on your system
+- docker-compose (usually comes with Docker Desktop)
+
+#### Running Tests with Docker
+
+**Option 1: Using docker-compose (Recommended)**
+```bash
+# Run all tests
+docker-compose run --rm test
+
+# Run tests with coverage report
+docker-compose run --rm coverage
+
+# Run tests in watch mode (for development)
+docker-compose run --rm test-watch
+```
+
+**Option 2: Manual Docker Commands**
+```bash
+# Build the Docker image (first time only)
+docker build -t task-radar .
+
+# Run tests
+docker run --rm task-radar npm run test
+
+# Run tests with coverage
+docker run --rm task-radar npm run test:coverage
+
+# Run specific test file
+docker run --rm task-radar npm test -- tests/unit/TaskManager.test.js
+```
+
+#### Docker Development Workflow
+
+**For Active Development:**
+```bash
+# Run tests in watch mode (re-runs on file changes)
+docker-compose run --rm test-watch
+
+# Run tests once
+docker-compose run --rm test
+
+# Get coverage report
+docker-compose run --rm coverage
+```
+
+**Using VS Code Docker Extension:**
+1. Install the Docker extension (`ms-azuretools.vscode-docker`)
+2. Open Docker Explorer (View → Command Palette → Docker: Show Explorer)
+3. Right-click on `docker-compose.yml` → Select service → "Compose Up"
+4. View logs and manage containers from the Docker panel
+
+#### Docker Testing Features
+
+- **Isolated Environment**: Tests run in a clean container with no local dependencies
+- **Consistent Results**: Same environment across different machines
+- **CI/CD Ready**: Perfect for automated testing pipelines
+- **Live Development**: Source code is mounted, changes reflect immediately
+- **Coverage Reports**: Generated coverage reports are accessible locally
+
+#### Troubleshooting Docker Tests
+
+**Build Issues:**
+```bash
+# Clear Docker cache and rebuild
+docker system prune -f
+docker build --no-cache -t task-radar .
+```
+
+**Permission Issues:**
+```bash
+# On Linux, you might need to run as root or add user to docker group
+sudo docker-compose run --rm test
+```
+
+**Container Won't Start:**
+```bash
+# Check Docker Desktop is running
+# Verify no port conflicts
+docker ps  # Check running containers
+```
+
+**Test Failures in Docker:**
+```bash
+# Run tests with verbose output
+docker-compose run --rm test -- --verbose
+
+# Run specific failing test
+docker-compose run --rm test -- --testNamePattern="specific test name"
+```
+
+**Development with Docker:**
+- The `docker-compose.yml` mounts your source code into the container
+- Changes to source files are reflected immediately
+- No need to rebuild the image for code changes
+- Dependencies are isolated within the container
+
 ## Install (developer / local)
 
 1. Open Chrome (or another Chromium-based browser).

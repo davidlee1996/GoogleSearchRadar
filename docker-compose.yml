@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  test:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run test
+    environment:
+      - NODE_ENV=test
+
+  test-watch:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run test -- --watch
+    environment:
+      - NODE_ENV=test
+
+  coverage:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run test:coverage
+    environment:
+      - NODE_ENV=test
