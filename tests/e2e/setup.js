@@ -110,6 +110,30 @@ global.getExtensionPopup = async () => {
           <button id="clear-completed">Clear Completed</button>
           <button id="export-tasks">Export Tasks</button>
         </div>
+        <script>
+          // Mock chrome APIs for testing
+          window.chrome = {
+            runtime: {
+              sendMessage: function(message, callback) {
+                // Mock response
+                if (callback) callback({ success: true });
+              },
+              onMessage: {
+                addListener: function() {}
+              }
+            },
+            storage: {
+              local: {
+                get: function(keys, callback) {
+                  callback({});
+                },
+                set: function(items, callback) {
+                  if (callback) callback();
+                }
+              }
+            }
+          };
+        </script>
       </body>
       </html>
     `);
@@ -137,6 +161,30 @@ global.getExtensionPopup = async () => {
           <button id="clear-completed">Clear Completed</button>
           <button id="export-tasks">Export Tasks</button>
         </div>
+        <script>
+          // Mock chrome APIs for testing
+          window.chrome = {
+            runtime: {
+              sendMessage: function(message, callback) {
+                // Mock response
+                if (callback) callback({ success: true });
+              },
+              onMessage: {
+                addListener: function() {}
+              }
+            },
+            storage: {
+              local: {
+                get: function(keys, callback) {
+                  callback({});
+                },
+                set: function(items, callback) {
+                  if (callback) callback();
+                }
+              }
+            }
+          };
+        </script>
       </body>
       </html>
     `);
