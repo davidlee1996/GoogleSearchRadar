@@ -7,7 +7,7 @@ global.__E2E_EXTENSION_ID__ = null;
 
 beforeAll(async () => {
   // Launch browser with extension
-  const extensionPath = path.join(__dirname, '../../src');
+  const extensionPath = path.resolve(__dirname, '../../src');
 
   global.__E2E_BROWSER__ = await puppeteer.launch({
     headless: true, // Run headless for CI
