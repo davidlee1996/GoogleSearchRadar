@@ -64,3 +64,61 @@ jobs:
         with:
           name: integration-tests-${{ matrix.node-version }}
           path: .
+
+  test-load:
+    name: Load tests (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run load tests
+        run: npm run test:load
+
+      - name: Upload load test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-tests-${{ matrix.node-version }}
+          path: .
+
+  test-e2e:
+    name: E2E tests (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run e2e tests
+        run: npm run test:e2e
+
+      - name: Upload e2e test logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-tests-${{ matrix.node-version }}
+          path: .
