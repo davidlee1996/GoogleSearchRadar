@@ -136,6 +136,29 @@ npm run test:watch
 
 Test files are located in the `tests/` directory.
 
+### Test reports & GitHub Pages
+
+- CI generates HTML test reports using `jest-html-reporter` (configured in the CI workflow).
+- Reports are produced under `reports/jest/` in each workflow job and uploaded as job artifacts.
+- A `publish-pages` job collects those artifacts, copies them into a `public/` folder, and deploys the files to the repository's GitHub Pages site.
+
+Local verification:
+
+```bash
+# install/update deps and lockfile
+npm install
+
+# run unit tests and produce an HTML report
+npm run test:unit -- --reporters=default --reporters=jest-html-reporter --reporter-options=outputPath=reports/jest/unit-local.html
+
+# open the generated report on macOS
+open reports/jest/unit-local.html
+```
+
+Notes:
+- If you use a lockfile (`package-lock.json`), commit it so the CI `npm ci` step installs `jest-html-reporter` consistently.
+- The Pages deploy step uses the Actions Pages artifacts; enable GitHub Pages for the repository if required by your org settings.
+
 ## Manifest
 
 This extension uses Manifest V3. Primary permissions declared in `manifest.json` include `storage`, `activeTab`, and `scripting`, and host permissions for Google domains.
