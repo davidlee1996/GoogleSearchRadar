@@ -16,7 +16,8 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "puppeteer": "^24.36.0"
+    "puppeteer": "^24.36.0",
+    "jest-html-reporter": "^3.5.0"
   },
   "jest": {
     "projects": [
