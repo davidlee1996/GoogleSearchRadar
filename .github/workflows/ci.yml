@@ -135,15 +135,16 @@ jobs:
           path: reports/jest
 
   publish-pages:
-    name: Publish test reports to GitHub Pages
+    name: Publish test reports to docs/reports/<timestamp> on main
     runs-on: ubuntu-latest
     needs: [test-unit, test-integration, test-load, test-e2e]
     permissions:
       contents: write
-      pages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Download all test report artifacts
         uses: actions/download-artifact@v4
@@ -155,8 +156,26 @@ jobs:
           mkdir -p public
           cp -R test-reports/* public/ || true
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+      - name: Commit reports to docs/reports/<timestamp>
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          TIMESTAMP=$(date -u +"%Y%m%dT%H%M%SZ")
+          TARGET_DIR=docs/reports/$TIMESTAMP
+
+          # ensure we have the latest main branch locally
+          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git"
+          git fetch origin main:main
+          git checkout -B main origin/main
+
+          mkdir -p "$TARGET_DIR"
+          cp -R public/* "$TARGET_DIR" || true
+
+          git add --force "$TARGET_DIR"
+          if git diff --cached --quiet; then
+            echo "No report changes to commit"
+          else
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "ci: add test reports for $TIMESTAMP"
+            git push origin main
+          fi
